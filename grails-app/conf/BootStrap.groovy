@@ -42,7 +42,7 @@ class BootStrap {
         def newIndenBarang = new TindenBarang()
         newIndenBarang.pembuat = newUser
         newIndenBarang.namaBarang = 'ADAPTOR'
-        newIndenBarang.keterangan = 'POWER LEMAH'
+        // newIndenBarang.keterangan = 'POWER LEMAH'
         newIndenBarang.branchShop = '0302'
         newIndenBarang.status = statusRequest
         newIndenBarang.save(flush:true)
@@ -50,29 +50,30 @@ class BootStrap {
         newIndenBarang = new TindenBarang()
         newIndenBarang.pembuat = newUser
         newIndenBarang.namaBarang = 'MOBO 478'
-        newIndenBarang.keterangan = 'MATI TOTAL'
+        // newIndenBarang.keterangan = 'MATI TOTAL'
         newIndenBarang.branchShop = '0302'
         newIndenBarang.status = statusRequest
         newIndenBarang = newIndenBarang.save(flush:true)
 
-        def newHistory = new ThistoryInden(status: MstatusInden.findByStatus('REJECT'), pembuat: Mlogin.findByUsername('edpho'), tanggalBuat: new Date())
+        def newHistory = new ThistoryInden(
+            status: MstatusInden.findByStatus('REJECT'), 
+            pembuat: Mlogin.findByUsername('edpho'), 
+            memo: 'DIGANTI CPU BARU',
+            tanggalBuat: new Date()
+        )
         newIndenBarang.addToHistory(newHistory)
         newIndenBarang.status = MstatusInden.findByStatus('REJECT')
-
         newIndenBarang.save(flush: true)
 
 
         newIndenBarang = new TindenBarang()
         newIndenBarang.pembuat = newUser
         newIndenBarang.namaBarang = 'KEYBOARD'
-        newIndenBarang.keterangan = 'TOMBOL ASDF TIDAK BISA'
+        // newIndenBarang.keterangan = 'TOMBOL ASDF TIDAK BISA'
         newIndenBarang.branchShop = '0302'
         newIndenBarang.status = statusRequest
         newIndenBarang.save(flush:true)
 
-        println("==================== TindenBarang ============================")
-        println(TindenBarang.findById(2) as JSON)
-        println("==================== TindenBarang ============================")
 
     }
     def destroy = {

@@ -122,4 +122,39 @@ class TindenBarangController {
 
         [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: TindenBarang.count()]
     }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_EDPHO'])
+    def savePropose() {
+        Date sekarang = new Date()
+
+        def newHistory = new ThistoryInden(
+            status: MstatusInden.findByStatus('PROPOSED'), 
+            pembuat: springSecurityService.currentUser, 
+            memo: '',
+            tanggalBuat: sekarang
+        )
+
+        int jumBarang = params.barangCount
+
+
+
+        for (i in 0..jumBarang) {
+            if (params.arrbarang."${i}") {
+                // println("id yg dipilih : " + params.arrbarang."${i}")
+
+                def tindenBarangInstance = TindenBarang.get(params.arrbarang."${i}")
+                if (!tindenBarangInstance) {
+                }
+                tindenBarangInstance.status = MstatusInden.findByStatus('PROPOSED')
+                tindenBarangInstance.addToHistory(newHistory)
+                tindenBarangInstance.save(flush:true)
+
+            }
+            else {
+
+            }
+        }
+
+        redirect(action:'propose')
+    }
 }

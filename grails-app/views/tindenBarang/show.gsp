@@ -43,15 +43,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${tindenBarangInstance?.keterangan}">
-				<li class="fieldcontain">
-					<span id="keterangan-label" class="property-label"><g:message code="tindenBarang.keterangan.label" default="Keterangan" /></span>
-					
-						<span class="property-value" aria-labelledby="keterangan-label"><g:fieldValue bean="${tindenBarangInstance}" field="keterangan"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${tindenBarangInstance?.namaBarang}">
 				<li class="fieldcontain">
 					<span id="namaBarang-label" class="property-label"><g:message code="tindenBarang.namaBarang.label" default="Nama Barang" /></span>

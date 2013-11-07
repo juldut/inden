@@ -27,14 +27,14 @@
 					
 						<g:sortableColumn property="branchShop" title="${message(code: 'tindenBarang.branchShop.label', default: 'Branch Shop')}" />
 					
-						<g:sortableColumn property="keterangan" title="${message(code: 'tindenBarang.keterangan.label', default: 'Keterangan')}" />
-					
 						<g:sortableColumn property="namaBarang" title="${message(code: 'tindenBarang.namaBarang.label', default: 'Nama Barang')}" />
 					
 						<th><g:message code="tindenBarang.pembuat.label" default="Pembuat" /></th>
 					
-						<th><g:message code="tindenBarang.status.label" default="Status" /></th>
-					
+%{-- 						<th><g:message code="tindenBarang.status.label" default="Status" /></th>
+ --}%					
+ 						<g:sortableColumn property="status" title="Status" />
+
 					</tr>
 				</thead>
 				<tbody>
@@ -42,8 +42,6 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${tindenBarangInstance.id}">${fieldValue(bean: tindenBarangInstance, field: "branchShop")}</g:link></td>
-					
-						<td>${fieldValue(bean: tindenBarangInstance, field: "keterangan")}</td>
 					
 						<td>${fieldValue(bean: tindenBarangInstance, field: "namaBarang")}</td>
 					
