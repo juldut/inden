@@ -11,7 +11,10 @@ class ThistoryInden {
 
 	static mapping = {
 		// memo type:'text'
+        
 	}
+
+
 
     static constraints = {
     }
@@ -20,4 +23,10 @@ class ThistoryInden {
     	SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy H:m:s")
     	return("${status.status} By ${pembuat.username} - ${sdf.format(tanggalBuat)}")
     }
+
+    String toStringTanggalBuat() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy H:m:s")
+    	return(sdf.format(tanggalBuat))
+    }
+
 }

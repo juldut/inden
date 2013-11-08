@@ -21,7 +21,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 
-			<g:form action="savePropose" >
+			<g:form action="saveReceive" >
 
 				<table>
 					<thead>
@@ -59,7 +59,7 @@
 					</tbody>
 				</table>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.propose.label', default: 'Propose')}" />
+					<g:submitButton name="create" class="save" value="${message(code: 'default.button.receive.label', default: 'Receive')}" />
 				</fieldset>
 			</g:form>
 

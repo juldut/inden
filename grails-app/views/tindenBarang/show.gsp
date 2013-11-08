@@ -37,7 +37,20 @@
 					<span id="history-label" class="property-label"><g:message code="tindenBarang.history.label" default="History" /></span>
 					
 						<g:each in="${tindenBarangInstance.history}" var="h">
-						<span class="property-value" aria-labelledby="history-label"><g:link controller="thistoryInden" action="show" id="${h.id}">${h?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="history-label">
+							%{-- <g:link controller="thistoryInden" action="show" id="${h.id}">${h?.encodeAsHTML()}</g:link> --}%
+							<table>
+								<tr>
+									<th width="40%">${h?.status?.status} By ${h?.pembuat?.username}</th>
+									<th>${h?.toStringTanggalBuat()}</th>
+								</tr>
+								<tr>
+									<td></td>
+									<td>${h?.memo}</td>
+								</tr>
+							</table>
+
+						</span>
 						</g:each>
 					
 				</li>
@@ -56,7 +69,11 @@
 				<li class="fieldcontain">
 					<span id="pembuat-label" class="property-label"><g:message code="tindenBarang.pembuat.label" default="Pembuat" /></span>
 					
-						<span class="property-value" aria-labelledby="pembuat-label"><g:link controller="mlogin" action="show" id="${tindenBarangInstance?.pembuat?.id}">${tindenBarangInstance?.pembuat?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="pembuat-label">
+							%{-- <g:link controller="mlogin" action="show" id="${tindenBarangInstance?.pembuat?.id}"> --}%
+								${tindenBarangInstance?.pembuat?.encodeAsHTML()}
+							%{-- </g:link> --}%
+						</span>
 					
 				</li>
 				</g:if>
@@ -65,7 +82,11 @@
 				<li class="fieldcontain">
 					<span id="status-label" class="property-label"><g:message code="tindenBarang.status.label" default="Status" /></span>
 					
-						<span class="property-value" aria-labelledby="status-label"><g:link controller="mstatusInden" action="show" id="${tindenBarangInstance?.status?.id}">${tindenBarangInstance?.status?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="status-label">
+							%{-- <g:link controller="mstatusInden" action="show" id="${tindenBarangInstance?.status?.id}"> --}%
+								${tindenBarangInstance?.status?.encodeAsHTML()}
+							%{-- </g:link> --}%
+						</span>
 					
 				</li>
 				</g:if>
@@ -76,6 +97,8 @@
 					<g:hiddenField name="id" value="${tindenBarangInstance?.id}" />
 					<g:link class="edit" action="edit" id="${tindenBarangInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="delete" action="reject" id="${tindenBarangInstance?.id}">Reject</g:link>
+
 				</fieldset>
 			</g:form>
 		</div>

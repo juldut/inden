@@ -12,8 +12,13 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li>
+					%{-- <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link> --}%
+					<g:link class="create" action="create">New Inden</g:link>
+				</li>
 				<li><g:link class="create" action="propose">Propose</g:link></li>
+				<li><g:link class="create" action="receive">Receive</g:link></li>
+				<li><g:link class="create" action="editStatus">Edit Status</g:link></li>
 			</ul>
 		</div>
 		<div id="list-tindenBarang" class="content scaffold-list" role="main">

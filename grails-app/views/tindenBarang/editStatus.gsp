@@ -5,7 +5,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'tindenBarang.label', default: 'TindenBarang')}" />
-		<title>Propose</title>
+		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<a href="#list-tindenBarang" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -13,6 +13,8 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="propose">Propose</g:link></li>
+				<li><g:link class="create" action="receive">Receive</g:link></li>
 			</ul>
 		</div>
 		<div id="list-tindenBarang" class="content scaffold-list" role="main">
@@ -21,7 +23,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 
-			<g:form action="savePropose" >
+			<g:form action="saveEditStatus" >
 
 				<table>
 					<thead>
@@ -30,13 +32,14 @@
 						
 							<g:sortableColumn property="branchShop" title="${message(code: 'tindenBarang.branchShop.label', default: 'Branch Shop')}" />
 						
-						
 							<g:sortableColumn property="namaBarang" title="${message(code: 'tindenBarang.namaBarang.label', default: 'Nama Barang')}" />
 						
 							<th><g:message code="tindenBarang.pembuat.label" default="Pembuat" /></th>
 						
-							<th><g:message code="tindenBarang.status.label" default="Status" /></th>
-						
+	%{-- 						<th><g:message code="tindenBarang.status.label" default="Status" /></th>
+	 --}%					
+	 						<g:sortableColumn property="status" title="Status" />
+
 						</tr>
 					</thead>
 					<tbody>
@@ -45,7 +48,6 @@
 							<td><g:checkBox name="arrbarang.${i}" checked="${false}" value="${fieldValue(bean: tindenBarangInstance, field: "id")}"/></td>
 						
 							<td><g:link action="show" id="${tindenBarangInstance.id}">${fieldValue(bean: tindenBarangInstance, field: "branchShop")}</g:link></td>
-						
 						
 							<td>${fieldValue(bean: tindenBarangInstance, field: "namaBarang")}</td>
 						
@@ -59,8 +61,10 @@
 					</tbody>
 				</table>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.propose.label', default: 'Propose')}" />
+					Status : <g:select id="status" name="status.id" from="${inden.MstatusInden.list()}" optionKey="id" required="" class="many-to-one"/>
+					<g:submitButton name="create" class="save" value="Save" />
 				</fieldset>
+
 			</g:form>
 
 			<div class="pagination">
