@@ -129,10 +129,11 @@ class TindenBarangController {
 
     @Secured(['ROLE_ADMIN', 'ROLE_EDPHO'])
     def propose() {
-        def tempList = TindenBarang.createCriteria().list {
-            eq("status", MstatusInden.findByStatus("REQUEST"))
+        def tempList = TindenBarang.createCriteria().list(params) {
+            ne("status", MstatusInden.findByStatus("PROPOSED"))
         }
-        [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: TindenBarang.count()]
+
+        [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: tempList.getTotalCount()]
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_EDPHO'])
@@ -146,13 +147,16 @@ class TindenBarangController {
             tanggalBuat: sekarang
         )
 
-        int jumBarang = params.barangCount
+        int jumBarang = Integer.parseInt(params.barangCount)
 
         for (i in 0..jumBarang) {
+            println("${i}")
             if (params.arrbarang."${i}") {
                 // println("id yg dipilih : " + params.arrbarang."${i}")
 
-                def tindenBarangInstance = TindenBarang.get(params.arrbarang."${i}")
+                Long tempKodeBarang = Integer.parseInt(params.arrbarang."${i}")
+
+                def tindenBarangInstance = TindenBarang.get(tempKodeBarang)
                 if (!tindenBarangInstance) {
                 }
                 tindenBarangInstance.status = MstatusInden.findByStatus('PROPOSED')
@@ -222,10 +226,10 @@ class TindenBarangController {
     }
 
     def receive() {
-        def tempList = TindenBarang.createCriteria().list {
-            eq("status", MstatusInden.findByStatus("PROPOSED"))
+        def tempList = TindenBarang.createCriteria().list(params) {
+            ne("status", MstatusInden.findByStatus("RECEIVED"))
         }
-        [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: TindenBarang.count()]
+        [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: tempList.getTotalCount()]
     }
     def saveReceive() {
         Date sekarang = new Date()
@@ -237,13 +241,15 @@ class TindenBarangController {
             tanggalBuat: sekarang
         )
 
-        int jumBarang = params.barangCount
+        int jumBarang = Integer.parseInt(params.barangCount)
 
         for (i in 0..jumBarang) {
             if (params.arrbarang."${i}") {
                 // println("id yg dipilih : " + params.arrbarang."${i}")
 
-                def tindenBarangInstance = TindenBarang.get(params.arrbarang."${i}")
+                Long tempKodeBarang = Integer.parseInt(params.arrbarang."${i}")
+
+                def tindenBarangInstance = TindenBarang.get(tempKodeBarang)
                 if (!tindenBarangInstance) {
                 }
                 tindenBarangInstance.status = MstatusInden.findByStatus('RECEIVED')
@@ -284,13 +290,15 @@ class TindenBarangController {
             tanggalBuat: sekarang
         )
 
-        int jumBarang = params.barangCount
+        int jumBarang = Integer.parseInt(params.barangCount)
 
         for (i in 0..jumBarang) {
             if (params.arrbarang."${i}") {
                 // println("id yg dipilih : " + params.arrbarang."${i}")
 
-                def tindenBarangInstance = TindenBarang.get(params.arrbarang."${i}")
+                Long tempKodeBarang = Integer.parseInt(params.arrbarang."${i}")
+
+                def tindenBarangInstance = TindenBarang.get(tempKodeBarang)
                 if (!tindenBarangInstance) {
                 }
                 tindenBarangInstance.status = newHistory.status
