@@ -21,7 +21,12 @@ class TindenBarangController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [tindenBarangInstanceList: TindenBarang.list(params), tindenBarangInstanceTotal: TindenBarang.count()]
+
+        def tempList = TindenBarang.createCriteria().list(params) {
+            ne("status", MstatusInden.findByStatus("DONE"))
+        }
+
+        [tindenBarangInstanceList: tempList, tindenBarangInstanceTotal: tempList.getTotalCount()]
     }
 
     def create() {
@@ -57,7 +62,6 @@ class TindenBarangController {
     def show(Long id) {
         def tindenBarangInstance = TindenBarang.get(id)
 
-        // tindenBarangInstance.history.sort { it.tanggalBuat }
 
         if (!tindenBarangInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tindenBarang.label', default: 'TindenBarang'), id])
@@ -128,7 +132,8 @@ class TindenBarangController {
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_EDPHO'])
-    def propose() {
+    def propose(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
         def tempList = TindenBarang.createCriteria().list(params) {
             ne("status", MstatusInden.findByStatus("PROPOSED"))
         }
@@ -150,7 +155,7 @@ class TindenBarangController {
         int jumBarang = Integer.parseInt(params.barangCount)
 
         for (i in 0..jumBarang) {
-            println("${i}")
+            
             if (params.arrbarang."${i}") {
                 // println("id yg dipilih : " + params.arrbarang."${i}")
 

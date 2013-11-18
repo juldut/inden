@@ -11,13 +11,14 @@ class TindenBarang {
 
 	static hasMany = [history : ThistoryInden]
 
+    SortedSet history 
+
     static constraints = {
     }
 
-    def afterLoad() {
-        history.sort { 
-            it.tanggalBuat
-        }
+    static mapping = {
     }
+
+   
 
 }

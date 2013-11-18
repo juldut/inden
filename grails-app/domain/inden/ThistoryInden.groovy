@@ -2,7 +2,7 @@ package inden
 
 import java.text.SimpleDateFormat
 
-class ThistoryInden {
+class ThistoryInden implements Comparable {
 
 	MstatusInden status
 	Date tanggalBuat
@@ -11,7 +11,7 @@ class ThistoryInden {
 
 	static mapping = {
 		// memo type:'text'
-        
+        // sort "tanggalBuat"
 	}
 
 
@@ -25,8 +25,11 @@ class ThistoryInden {
     }
 
     String toStringTanggalBuat() {
-    	SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy H:m:s")
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy H:mm:s")
     	return(sdf.format(tanggalBuat))
     }
 
+    int compareTo(obj) {
+        tanggalBuat.compareTo(obj.tanggalBuat)
+    }
 }
